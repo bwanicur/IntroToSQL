@@ -8,18 +8,18 @@ use intro_to_sql;
 -- create a table
 CREATE TABLE example_table (
   id INT,
-	abbreviation CHAR(2),
-	title VARCHAR(255),
-	body TEXT
+  abbreviation CHAR(2),
+  title VARCHAR(255),
+  body TEXT
 );
 
 -- create posts table
 CREATE TABLE posts (
   id INT(11),
-	author_initials CHAR(2),
-	title VARCHAR(255),
-	body TEXT,
-	created_at DATETIME
+  author_initials CHAR(2),
+  title VARCHAR(255),
+  body TEXT,
+  created_at DATETIME
 );
 
 -- insert some data into posts table
@@ -37,10 +37,10 @@ VALUES (2, 'BW', 'My Second Post', "This is my second post.  I feel like I am ge
 -- create improved id posts table
 CREATE TABLE improved_id_posts (
   id INT(11) AUTO_INCREMENT PRIMARY KEY,
-	author_initials CHAR(2),
-	title VARCHAR(255),
-	body TEXT,
-	created_at DATETIME
+  author_initials CHAR(2),
+  title VARCHAR(255),
+  body TEXT,
+  created_at DATETIME
 );
 
 -- insert statments for improved_id_posts
