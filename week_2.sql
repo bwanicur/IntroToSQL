@@ -29,7 +29,7 @@ CREATE TABLE posts_week_2_timestamp (
   author_initials CHAR(2) DEFAULT '**',
   title VARCHAR(255),
   body TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP DEFAULT NOW()
 );
 
 -- insert without created_at value
