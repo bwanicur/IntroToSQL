@@ -175,7 +175,10 @@ INSERT INTO authors_unique_key_2 (email, first_name, last_name) VALUES ('rob@yah
 UPDATE improved_posts_week_2 SET active = 0;
 
 -- update statement with condition
-UPDATE improved_posts_week_2 SET active = 1 WHERE author_initials = 'BW';
+UPDATE improved_posts_week_2 SET active = 1 WHERE author_id = 3;
+
+-- update multiple columns
+UPDATE improved_posts_week_2 SET active = 1, created_at = '2012-04-01' WHERE author_id != 3;
 
 -- delete all rows in our posts_week_2 table
 DELETE FROM posts_week_2;
