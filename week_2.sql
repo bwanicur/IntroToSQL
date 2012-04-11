@@ -68,6 +68,41 @@ SELECT * FROM posts_week_2 WHERE title = 'My Title' OR title = 'Author Post';
 
 
 
+-- Foods Table
+CREATE TABLE foods (
+  id INT(11) AUTO_INCREMENT,
+  name VARCHAR(255),
+  description TEXT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  PRIMARY KEY(id)
+);
+-- insert some data
+INSERT INTO foods (name, description) VALUES ('Stir Fry', "Tasty and healthy");
+INSERT INTO foods (name, description) VALUES ('Carob Covered Almonds', "Tasty and expensive");
+INSERT INTO foods (name, description) VALUES ('Shanua Roll', "Freakin' Delish!");
+
+-- select with verbose column naming
+SELECT foods.name, foods.description, foods.created_at FROM foods;
+
+-- select with column aliases
+SELECT foods.name AS 'My Foodie Name', foods.description AS Descrip, foods.created_at AS creation_date
+FROM foods;
+
+-- select with table alias
+SELECT f.name, f.description, f.created_at
+FROM foods AS f;
+
+-- select with table and column aliases
+SELECT f.name AS 'Food Name', f.description AS 'Food Description', f.created_at AS 'Creation Date'
+FROM foods AS f;
+
+
+
+
+
+
+
+
 -- create authors table
 CREATE TABLE authors (
   id INT(11) AUTO_INCREMENT,
@@ -112,76 +147,22 @@ INSERT INTO improved_posts_week_2 (author_id, title, body) VALUES (5, 'Me too', 
 INSERT INTO improved_posts_week_2 (author_id, title, body) VALUES (4, 'The Bastard', "Just literally.  I'm a very honrable guy.");
 
 
--- join usign the where clause
-SELECT authors.*, improved_posts_week_2.*
+-- join using the where clause
+SELECT authors.id, authors.first_name, authors.last_name, improved_posts_week_2.id, improved_posts_week_2.title
 FROM authors, improved_posts_week_2
-WHERE authors.id = improved_posts_week_2.author_id
+WHERE authors.id = improved_posts_week_2.author_id;
 
 -- join using INNER JOIN
-SELECT authors.*, improved_posts_week_2.*
-FROM authors INNER JOIN improved_posts_week_2 ON (authors.id = improved_posts_week_2.author_id)
+SELECT authors.id, authors.first_name, authors.last_name, improved_posts_week_2.id, improved_posts_week_2.title
+FROM authors INNER JOIN improved_posts_week_2 ON (authors.id = improved_posts_week_2.author_id);
 
 -- cleaner INNER JOIN
 SELECT a.id AS author_id, a.first_name, a.last_name, p.id AS post_id, p.title, p.body
 FROM authors AS a INNER JOIN improved_posts_week_2 AS p ON (a.id = p.author_id)
-WHERE a.last_name = 'Lanister'
+WHERE a.last_name = 'Lanister';
 
 
--- create table with keys
-CREATE TABLE posts_week_2_keys (
-  id INT(11) AUTO_INCREMENT,
-  author_initials CHAR(2) DEFAULT '**',
-  title VARCHAR(255),
-  body TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY(id),
-  KEY(author_initials)
-);
+-- join without conditions
+SELECT authors.id, improved_posts_week_2.id
+FROM authors INNER JOIN improved_posts_week_2;
 
--- authors table with unique key
-CREATE TABLE authors_unique_key (
-  id INT(11) AUTO_INCREMENT,
-  email VARCHAR(255),
-  first_name VARCHAR(255),
-  last_name VARCHAR(255),
-  active TINYINT(1) DEFAULT 1,
-  created_at TIMESTAMP DEFAULT NOW(),
-  PRIMARY KEY(id),
-  UNIQUE KEY(email)
-);
--- insert data
-INSERT INTO authors_unique_key (email, first_name, last_name) VALUES ('rob@winterfell.com', 'Rob', 'Stark');
-INSERT INTO authors_unique_key (email, first_name, last_name) VALUES ('rob@winterfell.com', 'Robert', 'Stark');
-
-
--- authors table with unique key over 2 columns
-CREATE TABLE authors_unique_key_2(
-  id INT(11) AUTO_INCREMENT,
-  email VARCHAR(255),
-  first_name VARCHAR(255),
-  last_name VARCHAR(255),
-  active TINYINT(1) DEFAULT 1,
-  created_at TIMESTAMP DEFAULT NOW(),
-  PRIMARY KEY(id),
-  UNIQUE KEY(first_name, last_name)
-);
--- insert data
-INSERT INTO authors_unique_key_2 (email, first_name, last_name) VALUES ('rob@winterfell.com', 'Rob', 'Stark');
-INSERT INTO authors_unique_key_2 (email, first_name, last_name) VALUES ('arya@winterfell.com', 'Arya', 'Stark');
-INSERT INTO authors_unique_key_2 (email, first_name, last_name) VALUES ('rob@yahoo.com', 'Rob', 'Stark');
-
-
--- update statement for every row 
-UPDATE improved_posts_week_2 SET active = 0;
-
--- update statement with condition
-UPDATE improved_posts_week_2 SET active = 1 WHERE author_id = 3;
-
--- update multiple columns
-UPDATE improved_posts_week_2 SET active = 1, created_at = '2012-04-01' WHERE author_id != 3;
-
--- delete all rows in our posts_week_2 table
-DELETE FROM posts_week_2;
-
--- delete all posts by anonymous authors
-DELETE FROM posts_week_2 WHERE author_initials = '**';
