@@ -174,13 +174,13 @@ SELECT * FROM posts_week_3 WHERE author_id IN (SELECT id FROM authors_week_3 WHE
 -- UPDATE and DELETE
 
 -- update statement for every row 
-UPDATE improved_posts_week_3 SET active = 0;
+UPDATE posts_week_3 SET active = 0;
 
 -- update statement with condition
-UPDATE improved_posts_week_3 SET active = 1 WHERE author_id = 3;
+UPDATE posts_week_3 SET active = 1 WHERE author_id = 3;
 
 -- update multiple columns
-UPDATE improved_posts_week_3 SET active = 1, created_at = '2012-04-01' WHERE author_id != 3;
+UPDATE posts_week_3 SET active = 1, created_at = '2012-04-01' WHERE author_id != 3;
 
 -- delete all rows in our posts_week_3 table
 DELETE FROM posts_week_3;
