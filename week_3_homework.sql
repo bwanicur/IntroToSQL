@@ -11,7 +11,7 @@ CREATE TABLE customers (
   UNIQUE KEY(email)
 );
 INSERT INTO customers (email, first_name, last_name) VALUES ('rob@winterfell.com', 'rob', 'stark');
-INSERT INTO customers (email, first_name, last_name) VALUES ('john@winterfell.com'. 'john', 'snow');
+INSERT INTO customers (email, first_name, last_name) VALUES ('john@winterfell.com', 'john', 'snow');
 INSERT INTO customers (email, first_name, last_name) VALUES ('ned@winterfell.com', 'eddard', 'stark');
 INSERT INTO customers (email, first_name, last_name) VALUES ('tyrion@lanister.com', 'tyrion', 'lanister');
 INSERT INTO customers (email, first_name, last_name) VALUES ('davos@seaworth.com', 'davos', 'seaworth');
