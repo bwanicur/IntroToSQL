@@ -1,5 +1,3 @@
--- The point of this file is to give you a larger data set to play with.  I purposefully left out any kind of relationships (Foreign Keys, etc...).  Feel free to alter these tables or add new tables to create relationships bewtween these 2 resources.
-
 -- create companies table
 CREATE TABLE companies (
   id INT(11) AUTO_INCREMENT,
@@ -12,154 +10,317 @@ CREATE TABLE companies (
   PRIMARY KEY(id)  
 );
 
-
 -- create employees table
 CREATE TABLE employees (
   id INT(11) AUTO_INCREMENT,
+  company_id INT(11) NOT NULL,
   email VARCHAR(255),
   first_name VARCHAR(255),
   last_name VARCHAR(255),
   age INT(11),
   created_at TIMESTAMP DEFAULT NOW(),
+  PRIMARY KEY(id),
+  KEY(company_id)
+);
+
+-- create skills table
+CREATE TABLE skills (
+  id INT(11) AUTO_INCREMENT,
+  name VARCHAR(255),
   PRIMARY KEY(id)
+);
+INSERT INTO skills (name) VALUES ('programming');
+INSERT INTO skills (name) VALUES ('quality assurance');
+INSERT INTO skills (name) VALUES ('project management');
+INSERT INTO skills (name) VALUES ('customer service');
+INSERT INTO skills (name) VALUES ('accounting');
+INSERT INTO skills (name) VALUES ('sales');
+INSERT INTO skills (name) VALUES ('design');
+INSERT INTO skills (name) VALUES ('security');
+
+-- create employees skills table
+CREATE TABLE employees_skills (
+  employee_id INT(11) NOT NULL,
+  skill_id INT(11) NOT NULL,
+  UNIQUE KEY(employee_id, skill_id)
 );
 
 
--- some relationship ideas
--- 1.  Add a Foreign Key to the employees table and join against companies
--- 2.  Add an intersection table between employees
--- 3.  Add a new table (skills or categories) and create "one to many" or "many to many" relationships
-
--- Here's the data:
-
 
 -- COMPANY DATA:
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Armstrong and Sons", "787 Gislason Summit", "Destinfurt", "Delaware", "59924-0359");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Will, Nikolaus and Blanda", "50697 Mack Turnpike", "Lake Kaleshire", "Colorado", "45474-4977");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Breitenberg and Sons", "13680 Mellie Street", "Stromanmouth", "Indiana", "67030");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("McLaughlin Inc", "134 Arvel Burgs", "South Mustafa", "Mississippi", "38007-7608");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Hyatt and Sons", "3780 Lilyan Dale", "Lake Mortimer", "New Jersey", "86166");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Heaney, Connelly and Mills", "278 Deja Street", "Georgeland", "Missouri", "52686-6810");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Langworth-Beatty", "4945 Dewitt Lodge", "Port Kyler", "South Dakota", "96944-5597");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Brown-Greenfelder", "9367 Kling Orchard", "West Dawnview", "Kentucky", "78712");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Reilly, Monahan and Dare", "2302 Cortney Mews", "South Tristianburgh", "Tennessee", "89564");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Schuppe, Gibson and Botsford", "39628 Schumm Track", "East Makaylafort", "Ohio", "11566");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Ankunding Group", "992 Welch Lane", "Michaelaview", "South Dakota", "54995-8511");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Sanford-Conn", "9536 Johathan Park", "Nikolausshire", "North Carolina", "99039-6034");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Leuschke-Koelpin", "918 Simone Club", "Georgefort", "Idaho", "90559");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("McKenzie-Schaefer", "2766 Denesik Alley", "Wisozkfort", "Idaho", "19946-8500");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Crooks, Lakin and Upton", "1969 Huel Curve", "Maxineshire", "Maryland", "94499");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Grady, Fritsch and McDermott", "280 Beryl Place", "Leslieland", "Pennsylvania", "21767");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("White, Bashirian and Wisozk", "966 Kirlin Shoal", "Lake Dwightmouth", "New York", "15918-1977");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Bartoletti Inc", "73507 Marisa Trafficway", "Port Lyda", "Texas", "26747-1160");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Jewess LLC", "76957 Lueilwitz Mountains", "East Jasper", "California", "80700");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Bode-Turner", "51490 Reynolds Spur", "East Mabelmouth", "Iowa", "51990");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Beahan, Douglas and Adams", "687 Rath Loaf", "Darwinbury", "Oklahoma", "47215");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Wilkinson, Ferry and Hauck", "5451 Funk Shoal", "Port Marcelina", "West Virginia", "83836");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Lesch LLC", "8780 Daron Cliffs", "Murazikton", "South Dakota", "43415-8811");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Cruickshank, Kerluke and Hodkiewicz", "35433 Clementine Drives", "Gabriellefurt", "Arizona", "64649-5440");
-INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Bednar, Walker and Medhurst", "173 Caitlyn Pass", "New America", "Rhode Island", "22339");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Lynch-Windler", "21142 Keshaun Heights", "Lake Savannah", "Iowa", "28604");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Kerluke Group", "80886 Chelsey Street", "Port Immanuel", "South Dakota", "68777");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Watsica-Marquardt", "84590 Hodkiewicz Crossing", "Mantetown", "Oklahoma", "55413-3732");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Batz LLC", "118 Jarrell Gateway", "New Marquise", "Alaska", "33648");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Ankunding, Lowe and Abshire", "3401 Lebsack Lakes", "East Reilly", "Missouri", "86342");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Cruickshank, Lakin and Marvin", "11781 Karine Spurs", "Hoppeport", "Pennsylvania", "20633-4990");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Lebsack-Frami", "4509 Rebecca Mountain", "Gloverborough", "Washington", "79048-0099");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Bechtelar, Turcotte and Hettinger", "11189 Fay Point", "Bartellland", "Mississippi", "44772");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Hintz-Lesch", "3786 Zulauf Centers", "New Timothyberg", "Kentucky", "42178-1223");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Abernathy, Luettgen and Olson", "2636 McKenzie Manors", "Rodfurt", "Oregon", "52534-9874");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Collier, Weber and Bayer", "23206 Auer Mall", "Bartolettiport", "North Carolina", "52521");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Reichert, Goldner and Hartmann", "2124 Hettinger Mount", "South Issacside", "New Jersey", "37254-8822");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Beer, Schimmel and Beahan", "57744 Victor Knoll", "Port Kaelaland", "Kentucky", "56665-5580");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Johnson, Reinger and Reichel", "98599 Alberta Keys", "Boyertown", "Maine", "15668");
+INSERT INTO companies (name, street_address, city, state, zipcode) VALUES ("Ortiz-Gislason", "275 Wolff Rapid", "Port Jasminville", "South Dakota", "30884");
 
 
 
 -- EMPLOYEE DATA:
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("marquise.heel@hotmail.com","Glenda","Funk", 56);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("hudson@hotmail.com","Kurt","Schinner", 67);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("trevor@gmail.com","Martine","Rice", 82);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("addison.bartoletti@yahoo.com","Jacinthe","Deckow", 41);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("zena@yahoo.com","Lupe","Krajcik", 69);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("tyson.bosco@hotmail.com","Maiya","Trantow", 60);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("myrtice@hotmail.com","Otha","Marks", 41);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("camilla@hotmail.com","Dortha","Kuvalis", 98);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("asha.hickle@yahoo.com","Janick","Renner", 48);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("amaya_lowe@hotmail.com","Sydnie","Blanda", 45);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("louisa.kshlerin@hotmail.com","Wilbert","Aufderhar", 29);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("sasha@yahoo.com","Izaiah","Willms", 66);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("laila.fadel@yahoo.com","Dominique","Okuneva", 33);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("luther@gmail.com","Anabel","Greenfelder", 100);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("june_dare@gmail.com","Esmeralda","D'Amore", 70);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("albert_hickle@yahoo.com","Reuben","Shields", 35);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("eusebio@yahoo.com","Antonina","O'Keefe", 84);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("cleve@hotmail.com","Aubrey","Dare", 65);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("berneice@yahoo.com","Daphney","Rempel", 68);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("murl_schinner@hotmail.com","Camille","Price", 52);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("alexandro_mante@yahoo.com","Rasheed","Sporer", 24);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("cheyenne.runolfsdottir@hotmail.com","Evalyn","Davis", 57);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("fay_lueilwitz@gmail.com","Bennett","Renner", 53);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("merle@yahoo.com","Axel","Swift", 73);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("casimer@gmail.com","Domenic","Connelly", 31);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("sandrine_klocko@hotmail.com","Tate","Morar", 65);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("aracely@hotmail.com","Santos","Little", 54);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("eriberto@yahoo.com","Perry","Collier", 48);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("alba@hotmail.com","Hazle","Trantow", 21);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("helga.streich@yahoo.com","Ona","Douglas", 91);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("moriah.kohler@gmail.com","Madeline","Kutch", 39);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("rosalee@gmail.com","Tanner","Konopelski", 83);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("eladio_stracke@gmail.com","Mellie","Reichert", 35);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("rosanna.moriette@yahoo.com","Eloise","Hansen", 74);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("arvilla@gmail.com","Nadia","Rogahn", 25);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("raoul@yahoo.com","Eunice","Blanda", 71);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("alene@hotmail.com","Henderson","Armstrong", 70);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("lucie.kunde@hotmail.com","Vern","Halvorson", 90);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("carmela.glover@gmail.com","Vanessa","Ruecker", 67);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("virginie_harber@gmail.com","Kaycee","Ward", 81);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("michele_herzog@hotmail.com","Danyka","Osinski", 48);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("arely@gmail.com","Jacklyn","Bernier", 37);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("kelly.feil@yahoo.com","Karley","Schneider", 79);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("deshaun@gmail.com","Brice","McLaughlin", 69);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("alverta@gmail.com","Tara","Konopelski", 23);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("carleton@hotmail.com","Jayne","Hudson", 34);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("martine@yahoo.com","Merle","Purdy", 42);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("felicita_keebler@yahoo.com","Lue","Cummerata", 21);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("porter@hotmail.com","Tyra","Schamberger", 74);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("una.mccullough@hotmail.com","Nels","Beahan", 44);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("haan@hotmail.com","Danielle","Berge", 29);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("sigurd_wolf@hotmail.com","Hobart","Hermann", 43);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("gregg_kirlin@yahoo.com","Erling","Ritchie", 50);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("oswaldo@gmail.com","Waino","Kassulke", 63);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("gus@hotmail.com","Eldridge","Metz", 29);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("modesto@yahoo.com","Karson","Larson", 93);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("marianne@gmail.com","Willow","Willms", 63);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("tad@gmail.com","Shany","Bailey", 57);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("thaddeus_leuschke@yahoo.com","Bernie","Rodriguez", 66);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("olga_emard@hotmail.com","Helene","Conn", 24);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("lonzo@hotmail.com","Brisa","Weber", 39);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("pinkie@gmail.com","Arden","Little", 24);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("caie.carter@yahoo.com","Sebastian","Zieme", 46);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("mortimer.mclaughlin@gmail.com","Abbie","Hilll", 41);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("ila@yahoo.com","Jaida","Mitchell", 71);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("elroy@yahoo.com","Pamela","Mertz", 29);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("obie@yahoo.com","Ernestine","Kunze", 40);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("kayla_effertz@yahoo.com","Nicola","Lang", 69);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("orlo.leannon@yahoo.com","Horacio","Sanford", 84);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("clarabelle@gmail.com","Vance","Mosciski", 97);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("rachel@hotmail.com","Eli","Brakus", 36);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("haylee@yahoo.com","Lavon","Hintz", 96);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("torrey@hotmail.com","Emmy","Daniel", 62);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("dudley.dach@yahoo.com","Kim","Monahan", 50);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("nelson@hotmail.com","Harry","Reynolds", 62);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("claire.prosacco@hotmail.com","Guiseppe","Donnelly", 84);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("emerald@hotmail.com","Keely","Funk", 96);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("troy@yahoo.com","Karli","Crona", 37);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("yasmine@hotmail.com","Robbie","Hegmann", 50);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("ignatius_graham@yahoo.com","Aracely","Kilback", 23);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("jazlyn.johnson@gmail.com","Lacy","Bahringer", 99);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("maryjane.bins@hotmail.com","Benedict","Littel", 57);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("flo_block@gmail.com","Vance","Altenwerth", 99);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("elliot@gmail.com","Domenica","Brakus", 37);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("keeley@yahoo.com","Bo","Kreiger", 64);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("kamren@hotmail.com","Clarabelle","Sawayn", 86);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("alia.bradtke@yahoo.com","Meta","Rosenbaum", 69);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("sadie@gmail.com","Brock","Wolf", 29);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("louie@gmail.com","Humberto","Metz", 55);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("annetta.grant@yahoo.com","Vernie","Zboncak", 44);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("winfield@gmail.com","Colton","Champlin", 29);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("federico@hotmail.com","Elda","Keebler", 44);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("emerson@yahoo.com","Gunnar","Hessel", 28);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("micah@gmail.com","Esther","Crist", 66);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("kali.little@gmail.com","Kiley","Lesch", 39);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("moises.dickens@hotmail.com","Melba","Bauch", 80);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("eudora@yahoo.com","Lempi","Gorczany", 88);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("misty_cronin@gmail.com","Bo","Zboncak", 71);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("bonnie@hotmail.com","Maybell","Rice", 32);
-INSERT INTO employees (email, first_name, last_name, age) VALUES ("brandt@yahoo.com","Elmore","Predovic", 22);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("augustus_muller@gmail.com",1, "Stanford","Bergnaum", 21);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("margot@hotmail.com",10, "Easton","Moore", 75);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("marty_mclaughlin@hotmail.com",8, "Lucie","Doyle", 91);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("reva.tremblay@yahoo.com",7, "Elliott","Ondricka", 36);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("meda.conn@gmail.com",4, "Maegan","Homenick", 48);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("jerod@yahoo.com",12, "Keegan","Dare", 82);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("brayan_conroy@gmail.com",9, "Halle","Kuhic", 78);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("cierra@yahoo.com",7, "Xander","Williamson", 70);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("donavon@hotmail.com",4, "Hudson","Schamberger", 28);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("emilie.moore@yahoo.com",1, "Fabiola","Kautzer", 59);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("chloe_boyle@yahoo.com",8, "Bonita","Nader", 71);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("anjali@gmail.com",7, "Abigail","Morissette", 49);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("geo.mayert@gmail.com",11, "King","Bosco", 29);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("adolph@gmail.com",14, "Abdiel","Mueller", 63);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("deon.ondricka@hotmail.com",4, "Josue","Baumbach", 73);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("marguerite_lowe@gmail.com",6, "Zachary","Torp", 97);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("rupert@yahoo.com",3, "Sylvia","Kerluke", 99);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("alfonso@yahoo.com",12, "Terry","Prosacco", 64);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("tatum.mcglynn@yahoo.com",10, "Rachelle","Lemke", 35);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("johathan_cain@yahoo.com",11, "Shaina","Kunde", 37);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("rahul.becker@gmail.com",8, "Elsie","Grady", 31);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("domenic.gutkowski@gmail.com",1, "Avery","Smith", 52);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("nathanael@gmail.com",3, "Jennifer","Zulauf", 23);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("marcella@hotmail.com",8, "Donna","McClure", 50);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("bruce.kohler@hotmail.com",6, "Laurel","Mosciski", 73);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("dianna_quitzon@hotmail.com",4, "Ivory","Rempel", 59);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("barbara.kerluke@hotmail.com",3, "Rachelle","Mohr", 82);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("hobart@gmail.com",12, "Noah","Kiehn", 78);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("summer@hotmail.com",12, "Camylle","Smitham", 63);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("zora@gmail.com",8, "Amy","Grant", 76);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("aletha@yahoo.com",6, "Kraig","Wintheiser", 58);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("ernie.fadel@gmail.com",13, "Carley","Turner", 97);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("andreanne.lowe@yahoo.com",8, "Arthur","Thompson", 35);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("janice@yahoo.com",2, "Heath","Watsica", 61);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("jeie@yahoo.com",12, "Kirsten","Sanford", 63);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("milton@hotmail.com",8, "Ashlee","Bailey", 77);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("toney_mante@gmail.com",3, "Josianne","Olson", 80);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("amari@hotmail.com",12, "Ernestine","Morar", 80);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("trudie.hahn@yahoo.com",12, "Scottie","Zemlak", 88);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("dion@gmail.com",11, "Elenora","Bode", 31);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("kaia.oberbrunner@gmail.com",4, "Carlie","Douglas", 21);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("ignatius@hotmail.com",2, "Connor","Howell", 92);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("kendra@hotmail.com",10, "Kimberly","D'Amore", 26);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("quentin.rippin@gmail.com",10, "Elsa","Goldner", 45);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("alfonzo.wilderman@yahoo.com",11, "Anna","Schaden", 50);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("justine@gmail.com",1, "Fidel","Cormier", 80);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("antonette.simonis@hotmail.com",12, "Lee","Rutherford", 84);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("avery_howell@gmail.com",14, "Everette","Jast", 73);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("treva.hilll@gmail.com",7, "Maxwell","O'Keefe", 88);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("berneice.dickinson@yahoo.com",7, "Jairo","Medhurst", 33);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("burley@hotmail.com",12, "Thalia","Kihn", 52);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("winston.toy@yahoo.com",7, "Madyson","Koss", 47);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("beulah_vonrueden@yahoo.com",6, "Dayna","West", 65);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("abigale@hotmail.com",6, "Zelda","Koss", 22);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("justice_lemke@yahoo.com",4, "Barton","Reichel", 94);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("tavares@hotmail.com",10, "Marcelino","Bartoletti", 46);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("toni.hansen@hotmail.com",4, "Deanna","Champlin", 65);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("cody@hotmail.com",10, "Domenico","Hermann", 75);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("nicolette.bayer@hotmail.com",9, "Tillman","Altenwerth", 82);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("melvin@yahoo.com",6, "Osbaldo","Thompson", 28);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("macie_stamm@hotmail.com",1, "Antone","Ryan", 30);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("nicolette@gmail.com",5, "Leonor","Torp", 27);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("darrick.beer@gmail.com",12, "Tremayne","Purdy", 25);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("keara@yahoo.com",3, "Gavin","Kuphal", 41);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("mary@hotmail.com",9, "Benton","Marks", 65);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("rosella_rice@yahoo.com",10, "Stephen","Howe", 49);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("rosalyn_haley@gmail.com",13, "Katlyn","Collins", 70);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("christian@yahoo.com",11, "Gene","Yost", 22);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("clair.mills@hotmail.com",6, "Kelvin","O'Hara", 100);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("jairo_pollich@hotmail.com",7, "Nicolas","Schroeder", 86);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("jimmie@gmail.com",3, "Kellen","Ledner", 33);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("murray@yahoo.com",5, "Lucy","Dicki", 61);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("lamont.cummerata@yahoo.com",12, "Kip","Schmeler", 52);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("josiah_nicolas@yahoo.com",2, "Tanner","Herzog", 100);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("dario_waters@yahoo.com",3, "Wilfred","Deckow", 78);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("jalon.nienow@gmail.com",6, "Miller","Lehner", 63);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("barney_gaylord@gmail.com",13, "Cornelius","Gutmann", 25);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("savannah.tromp@yahoo.com",9, "Rey","Marvin", 45);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("gaylord@hotmail.com",11, "Alfred","Turcotte", 29);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("burley@hotmail.com",8, "Melvina","Dooley", 23);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("brandon_koepp@yahoo.com",12, "Mina","Kihn", 44);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("sienna_friesen@yahoo.com",6, "Merl","Hartmann", 53);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("kory.runolfon@gmail.com",2, "Baylee","Lockman", 40);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("myra@gmail.com",6, "Reilly","Ratke", 47);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("bret@hotmail.com",3, "Ima","Marvin", 94);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("libby@hotmail.com",5, "Kylee","Satterfield", 23);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("luther@hotmail.com",9, "Cynthia","Wintheiser", 60);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("cynthia@yahoo.com",8, "Tressie","Ondricka", 31);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("julie.welch@hotmail.com",14, "Stella","Tremblay", 63);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("hal@gmail.com",12, "Ruth","Leuschke", 91);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("jake_windler@yahoo.com",4, "Ed","Weber", 95);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("esta@hotmail.com",2, "Tina","Denesik", 31);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("korbin_mckenzie@hotmail.com",1, "General","Bosco", 83);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("jaycee_kertzmann@gmail.com",1, "Andy","Schultz", 59);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("claud@yahoo.com",9, "Lurline","Fahey", 76);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("nellie@hotmail.com",7, "Furman","Conn", 66);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("jazmin_hane@hotmail.com",1, "Izabella","Schaefer", 27);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("ernestine@gmail.com",2, "Rubie","Daniel", 44);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("helga@yahoo.com",6, "Herbert","Strosin", 71);
+INSERT INTO employees (email, company_id, first_name, last_name, age) VALUES ("javier@gmail.com",8, "Jeremie","Leffler", 87);
+
+
+
+-- EMPLOYEE SKILLS:
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (32, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (25, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (2, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (39, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (21, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (35, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (13, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (61, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (46, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (6, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (28, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (3, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (96, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (43, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (13, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (16, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (45, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (72, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (64, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (45, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (5, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (87, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (47, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (21, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (48, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (43, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (9, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (65, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (57, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (42, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (61, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (58, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (17, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (42, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (38, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (42, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (75, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (23, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (38, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (78, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (39, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (24, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (34, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (67, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (9, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (38, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (64, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (81, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (84, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (40, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (3, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (2, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (15, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (50, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (65, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (46, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (20, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (64, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (10, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (70, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (2, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (71, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (62, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (92, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (47, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (64, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (39, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (60, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (94, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (71, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (24, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (6, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (19, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (65, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (20, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (17, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (77, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (28, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (74, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (80, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (35, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (79, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (46, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (95, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (55, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (44, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (11, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (49, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (73, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (18, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (25, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (71, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (5, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (63, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (32, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (46, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (76, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (77, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (54, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (52, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (45, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (39, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (75, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (88, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (42, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (94, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (20, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (81, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (59, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (52, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (89, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (86, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (65, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (78, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (8, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (9, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (29, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (58, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (7, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (99, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (91, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (70, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (94, 2);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (23, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (94, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (4, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (51, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (58, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (31, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (80, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (74, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (51, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (88, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (36, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (32, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (91, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (43, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (30, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (10, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (87, 4);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (91, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (61, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (13, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (77, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (68, 1);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (38, 7);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (81, 6);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (24, 3);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (66, 5);
+INSERT INTO employees_skills (employee_id, skill_id) VALUES (50, 7);
+
+
+
